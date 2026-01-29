@@ -3,6 +3,7 @@ Camelot PDF Table Extractor
 Extract tables from PDFs and convert to pandas DataFrames
 """
 
+# Import libraries
 import camelot
 import pandas as pd
 from pathlib import Path
@@ -264,12 +265,12 @@ def main():
     pdf_path = "data/mcs2024.pdf"
     extractor = CamelotTableExtractor(pdf_path)
     
-    # Example 1: Extract from a single page (page 34 = Antimony)
+    # Example 1: Extract from a single page
     print("="*80)
     print("EXAMPLE 1: Single Page Extraction")
     print("="*80)
     
-    tables = extractor.auto_extract(34)  # Note: 1-indexed!
+    tables = extractor.auto_extract(32)  # Note: 1-indexed!
     
     if tables:
         print("\n--- EXTRACTED TABLE ---")
@@ -281,22 +282,22 @@ def main():
     print("EXAMPLE 2: Multiple Pages")
     print("="*80)
     
-    # Extract pages 34-40 (Antimony through Bauxite)
-    results = extractor.extract_tables_from_pages('34-40', flavor='stream')
+    # Extract pages 32-205
+    results = extractor.extract_tables_from_pages('32-205', flavor='stream')
     
     # Example 3: Get quality report
     print("\n" + "="*80)
     print("EXAMPLE 3: Quality Report")
     print("="*80)
     
-    extractor.get_table_quality_report(34)
+    extractor.get_table_quality_report(32)
     
     # Example 4: Extract specific USGS commodity
     print("\n" + "="*80)
     print("EXAMPLE 4: USGS Commodity Table")
     print("="*80)
     
-    df = extractor.extract_usgs_commodity_table(34, flavor='stream')
+    df = extractor.extract_usgs_commodity_table(32, flavor='stream')
     if df is not None:
         print("\nSalient Statistics Table:")
         print(df)
