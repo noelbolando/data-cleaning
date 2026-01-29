@@ -270,7 +270,7 @@ def main():
     print("EXAMPLE 1: Single Page Extraction")
     print("="*80)
     
-    tables = extractor.auto_extract(32)  # Note: 1-indexed!
+    tables = extractor.auto_extract(30)  # Note: 1-indexed!
     
     if tables:
         print("\n--- EXTRACTED TABLE ---")
@@ -282,22 +282,22 @@ def main():
     print("EXAMPLE 2: Multiple Pages")
     print("="*80)
     
-    # Extract pages 32-205
-    results = extractor.extract_tables_from_pages('32-205', flavor='stream')
+    # Extract pages 30-205
+    results = extractor.extract_tables_from_pages('30-209', flavor='stream')
     
     # Example 3: Get quality report
     print("\n" + "="*80)
     print("EXAMPLE 3: Quality Report")
     print("="*80)
     
-    extractor.get_table_quality_report(32)
+    extractor.get_table_quality_report(30)
     
     # Example 4: Extract specific USGS commodity
     print("\n" + "="*80)
     print("EXAMPLE 4: USGS Commodity Table")
     print("="*80)
     
-    df = extractor.extract_usgs_commodity_table(32, flavor='stream')
+    df = extractor.extract_usgs_commodity_table(30, flavor='stream')
     if df is not None:
         print("\nSalient Statistics Table:")
         print(df)
