@@ -1,7 +1,7 @@
 """
 Odd Pages Cleaner
 Cleans only odd-numbered pages (35, 37, 39, etc.) from world_production_cleaned folder
-Finds rows with pattern: ,2022,2023e, (comma before years)
+Finds rows with pattern: ,1990,1991, or ,2022,2023e, (comma before years)
 Keeps one row before that pattern through "World total" row
 """
 
@@ -41,7 +41,7 @@ for csv_file in csv_files:
     # Read CSV
     df = pd.read_csv(csv_file, header=None)
     
-    # Step 1: Find the row with pattern: ,2022,2023e, (comma before years)
+    # Step 1: Find the row with pattern: ,1990,1991, or ,2022,2023e, (comma before years)
     years_row = None
     for idx, row in df.iterrows():
         # Check if first cell is empty/NA and second cell looks like a year
@@ -52,8 +52,8 @@ for csv_file in csv_files:
             # Check if first cell is empty and second looks like a year
             if (pd.isna(first_cell) or str(first_cell).strip() == ''):
                 if pd.notna(second_cell):
-                    # Check if it's a year pattern (20XX with optional 'e')
-                    if re.match(r'^20[0-9]{2}e?$', str(second_cell).strip()):
+                    # Check if it's a year pattern (19XX or 20XX with optional 'e')
+                    if re.match(r'^(?:19|20)[0-9]{2}e?$', str(second_cell).strip()):
                         years_row = idx
                         break
     

@@ -31,8 +31,8 @@ for csv_file in csv_files:
         # Convert row to string to search for year patterns
         row_str = ' '.join([str(cell) for cell in row if pd.notna(cell)])
         
-        # Look for multiple years (at least 2 years in format 20XX)
-        years = re.findall(r'\b20[0-9]{2}e?\b', row_str)
+        # Look for multiple years (at least 2 years in format 19XX or 20XX)
+        years = re.findall(r'\b(?:19|20)[0-9]{2}e?\b', row_str)
         
         if len(years) >= 2:
             year_row = idx
@@ -61,3 +61,4 @@ print(f"\n{'='*60}")
 print(f"Done! Cleaned {len(csv_files)} files")
 print(f"Output: {output_folder}/")
 print(f"{'='*60}")
+

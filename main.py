@@ -65,8 +65,8 @@ def main():
         # Step 6: Add 'country' to position 0
         ("add_country_header.py", "Add 'country' header"),
         
-        # Step 7: Add source column with mcs2024
-        ("add_source_column.py", "Add 'source' column with mcs2024"),
+        # Step 7: Add source column with mcs1997
+        ("add_source_column.py", "Add 'source' column with mcs1997"),
         
         # Step 8: Unpivot to long format
         ("unpivot_tables.py", "Unpivot tables to long format"),

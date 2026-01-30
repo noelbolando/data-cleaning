@@ -9,9 +9,9 @@ import re
 from pathlib import Path
 
 # Configuration
-pdf_path = "raw_data/mcs2024.pdf"
-start_page = 30  # First commodity page (ABRASIVES)
-end_page = 209   # Last commodity page
+pdf_path = "raw_data/mcs1997.pdf"
+start_page = 20  # First commodity page to extract
+end_page = 195    # Last commodity page to extract
 output_file = "commodity_names.csv"
 
 print(f"Extracting commodity names from pages {start_page} to {end_page}...\n")

@@ -1,7 +1,7 @@
 """
 Add 'source' Column
 Adds 'source' column at the very beginning (position 0) of each file
-Header row gets 'source', all other rows get 'mcs2024'
+Header row gets 'source', all other rows get 'mcs1997'
 """
 
 import pandas as pd
@@ -28,8 +28,8 @@ for csv_file in csv_files:
     print(f"  Original shape: {df.shape}")
     
     # Create source column
-    # First row gets 'source', all other rows get 'mcs2024'
-    source_column = ['source'] + ['mcs2024'] * (len(df) - 1)
+    # First row gets 'source', all other rows get 'mcs1997'
+    source_column = ['source'] + ['mcs1997'] * (len(df) - 1)
     
     # Insert at position 0 (very beginning)
     df.insert(0, 'source_col', source_column)
