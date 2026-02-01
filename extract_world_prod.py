@@ -8,9 +8,9 @@ import pandas as pd
 from pathlib import Path
 
 # Configuration
-pdf_path = "raw_data/mcs1997.pdf"
-start_page = 20  # First commodity page to extract
-end_page = 195    # Last commodity page to extract
+pdf_path = "raw_data/mcs2024.pdf"
+start_page = 30  # First commodity page (ABRASIVES)
+end_page = 205   # Last commodity page
 output_dir = "world_production"
 
 # Create output directory

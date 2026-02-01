@@ -1,6 +1,6 @@
 """
-Rename Column Header and Add Commodity Column
-Renames 'metric' column to 'type' and adds empty 'commodity' column
+Rename Column Header and Add Commodity and Units Columns
+Renames 'metric' column to 'type' and adds empty 'commodity' and 'units' columns
 """
 
 import pandas as pd
@@ -13,7 +13,7 @@ output_folder = "world_production_renamed"
 # Create output folder
 Path(output_folder).mkdir(exist_ok=True)
 
-print(f"Renaming 'metric' to 'type' and adding 'commodity' column in {input_folder}/...\n")
+print(f"Renaming 'metric' to 'type' and adding 'commodity' and 'units' columns in {input_folder}/...\n")
 
 # Process each CSV file
 csv_files = list(Path(input_folder).glob("*.csv"))
@@ -29,6 +29,9 @@ for csv_file in csv_files:
     
     # Add 'commodity' column (empty for now)
     df['commodity'] = ''
+    
+    # Add 'units' column (empty for now)
+    df['units'] = ''
     
     print(f"  Columns: {list(df.columns)}")
     
@@ -49,4 +52,3 @@ if csv_files:
     df_preview = pd.read_csv(first_file)
     print("\nPreview of first file:")
     print(df_preview.head())
-    
