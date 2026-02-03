@@ -8,7 +8,7 @@ from pathlib import Path
 
 # Configuration
 input_folder = "world_production_with_commodities"
-output_file = "mcs1997_all_world_production_usgs.csv"
+output_file = "mcs1996_all_world_production_usgs.csv"
 
 print(f"Combining all CSV files from {input_folder}/...\n")
 

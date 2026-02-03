@@ -34,7 +34,18 @@ for csv_file in csv_files:
         # Look for multiple years (at least 2 years in format 19XX or 20XX)
         years = re.findall(r'\b(?:19|20)[0-9]{2}e?\b', row_str)
         
-        if len(years) >= 2:
+        # Look for any pattern that looks like a year (very flexible)
+        # Matches anything starting with 1, 19, 20, or t followed by mixed characters
+        # This catches: 1.995, 19.96~, 199.5, 1.9.968, 19.9.5, 19i5, 19~, 199_6, 19.&r, t995, etc.
+        flexible_years = re.findall(r'\b(?:1|19|20|t)[0-9.~_&\-!\'ia-zA-Z]{1,5}e?\b', row_str)
+        
+        # Also look for standalone ~ or 1~ which represent years
+        tilde_years = re.findall(r'\b[1~]+\b', row_str)
+        
+        # If we find either standard years or flexible years, this is likely the year row
+        # Need at least 2 matches
+        total_matches = len(years) + len(flexible_years) + len(tilde_years)
+        if total_matches >= 2:
             year_row = idx
             break
     
@@ -61,4 +72,3 @@ print(f"\n{'='*60}")
 print(f"Done! Cleaned {len(csv_files)} files")
 print(f"Output: {output_folder}/")
 print(f"{'='*60}")
-

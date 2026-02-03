@@ -1,7 +1,8 @@
 """
 Odd Pages Cleaner
 Cleans only odd-numbered pages (35, 37, 39, etc.) from world_production_cleaned folder
-Finds rows with pattern: ,1990,1991, or ,2022,2023e, (comma before years)
+Finds rows with flexible year patterns (comma before years): handles standard years, decimals, typos, and malformed years
+Examples: ,1995,1996 or ,19.96~,199_6 or ,t995,19.&r or ,.199.5,1996! or ,ll95,199.6~ etc.
 Keeps one row before that pattern through "World total" row
 """
 
@@ -41,7 +42,7 @@ for csv_file in csv_files:
     # Read CSV
     df = pd.read_csv(csv_file, header=None)
     
-    # Step 1: Find the row with pattern: ,1990,1991, or ,2022,2023e, (comma before years)
+    # Step 1: Find the row with pattern: ,1990,1991, or ,2022,2023e, or ,1.995,19.96~, or ,199.5,1.9.968, or ,19i5,19~ (comma before years)
     years_row = None
     for idx, row in df.iterrows():
         # Check if first cell is empty/NA and second cell looks like a year
@@ -52,8 +53,13 @@ for csv_file in csv_files:
             # Check if first cell is empty and second looks like a year
             if (pd.isna(first_cell) or str(first_cell).strip() == ''):
                 if pd.notna(second_cell):
-                    # Check if it's a year pattern (19XX or 20XX with optional 'e')
-                    if re.match(r'^(?:19|20)[0-9]{2}e?$', str(second_cell).strip()):
+                    second_str = str(second_cell).strip()
+                    
+                    # Very flexible year pattern matching
+                    # Catches: 1995, 19.96~, 199_6, 19.&r, t995, 1~, ~, 19itr, .199.5, ll95, etc.
+                    # Pattern: starts with optional ., then 1/19/20/t/l, followed by mixed characters
+                    if (re.match(r'^\.?(?:1|19|20|t|l)[0-9.~_&\-!\'ia-zA-Z\s]{0,7}e?$', second_str) or
+                        re.match(r'^[1~]+$', second_str)):  # Also match standalone ~ or 1~
                         years_row = idx
                         break
     

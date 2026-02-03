@@ -7,8 +7,8 @@ import pandas as pd
 import re
 
 # Configuration
-input_file = "mcs1997_all_world_production_usgs.csv"
-output_file = "mcs1997_all_world_production_usgs_cleaned.csv"
+input_file = "mcs1996_all_world_production_usgs.csv"
+output_file = "mcs1996_all_world_production_usgs_cleaned.csv"
 
 print(f"Pivoting year data from {input_file}...\n")
 

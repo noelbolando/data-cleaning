@@ -43,6 +43,7 @@ def main():
     print("3. Extract commodity names")
     print("4. Combine all files")
     print("5. Pivot into final format")
+    print("6. Clean country, type, and PROD columns")
     print("\nStarting pipeline...\n")
     
     # Define pipeline steps
@@ -65,8 +66,8 @@ def main():
         # Step 6: Add 'country' to position 0
         ("add_country_header.py", "Add 'country' header"),
         
-        # Step 7: Add source column with mcs1997
-        ("add_source_column.py", "Add 'source' column with mcs1997"),
+        # Step 7: Add source column with mcs1996
+        ("add_source_column.py", "Add 'source' column with mcs1996"),
         
         # Step 8: Unpivot to long format
         ("unpivot_tables.py", "Unpivot tables to long format"),
@@ -85,6 +86,9 @@ def main():
         
         # Step 13: Pivot years into columns
         ("parsing_yearly_prod_data.py", "Pivot year data into separate columns"),
+        
+        # Step 14: Clean the data
+        ("post_merge_cleaning_script.py", "Clean country, type, and PROD columns"),
     ]
     
     # Run each step
@@ -103,7 +107,7 @@ def main():
     
     if not failed_steps:
         print("\n✓ All steps completed successfully!")
-        print("\nFinal output file: combined_world_production_pivoted.csv")
+        print("\nFinal output file: combined_world_production_cleaned.csv")
     else:
         print(f"\n⚠ {len(failed_steps)} step(s) failed:")
         for script, description in failed_steps:
